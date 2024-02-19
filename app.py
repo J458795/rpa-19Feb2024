@@ -6,5 +6,5 @@ app=Flask(_name_)
 def index():
   return{render_template("index.html")}
 
-if_name_=="main":
+if_name_=="_main_"
 app.run()
