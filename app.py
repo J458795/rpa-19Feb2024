@@ -12,7 +12,7 @@ def main():
    = request.fore.get("r")
   return(render_template("main.html",r=r))
 
-@app.route("/imageGPT",methods=["GET","POST"])
+@app.route("/image_gpt",methods=["GET","POST"])
 def main():
   return(render_template("imageGPT.html"))
 
