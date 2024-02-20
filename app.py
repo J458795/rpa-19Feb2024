@@ -9,8 +9,8 @@ def index():
 
 @app.route("/main",methods=["GET","POST"])
 def main():
-   = request.fore.get("r")
-  return(render_template("main.html",r=r))
+   = request.fore.get("name")
+  return(render_template("main.html",r=name))
 
 if __name__ == "__main__":
   app.run()
