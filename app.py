@@ -9,12 +9,12 @@ def index():
 
 @app.route("/main",methods=["GET","POST"])
 def main():
-   = request.fore.get("r")
+  r = request.fore.get("r")
   return(render_template("main.html",r=r))
 
 @app.route("/image_gpt",methods=["GET","POST"])
-def main():
-  return(render_template("imageGPT.html"))
+def image_gpt():
+  return(render_template("image_gpt.html"))
 
 if __name__ == "__main__":
   app.run()
