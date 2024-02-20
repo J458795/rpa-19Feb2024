@@ -9,8 +9,8 @@ def index():
 
 @app.route("/main",methods=["GET","POST"])
 def main():
-   = request.fore.get("name")
-  return(render_template("main.html",r=name))
+   = request.fore.get("r")
+  return(render_template("main.html",r=r))
 
 @app.route("/imageGPT",methods=["GET","POST"])
 def main():
