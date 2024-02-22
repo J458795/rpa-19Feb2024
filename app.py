@@ -18,6 +18,10 @@ first_time = 1
 def index():
     return(render_template("index.html"))
 
+@app.route("/",methods=["GET","POST"])
+def index():
+    return(render_template("remarks.html"))
+
 @app.route("/main",methods=["GET","POST"])
 def main():
     global r,first_time
@@ -44,23 +48,6 @@ def text_result():
     )
     time.sleep(5)
     return(render_template("text_result.html",r=r.choices[0].message.content))
-
-@app.route("/remarks_gpt",methods=["GET","POST"])
-def image_gpt():
-    return(render_template("remarks_gpt.html"))
-
-@app.route("/remarks_result",methods=["GET","POST"])
-def image_result():
-    q = request.form.get("q")
-    r = replicate.run(
-    "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf",
-    input={
-        "prompt": q,
-        }
-    )
-    time.sleep(10)
-    return(render_template("remarks_result.html",r=r[0]))
-
 
 @app.route("/text_gpt",methods=["GET","POST"])
 def text_gpt():
