@@ -45,25 +45,21 @@ def text_result():
     time.sleep(5)
     return(render_template("text_result.html",r=r.choices[0].message.content))
 
-@app.route("/text_gpt",methods=["GET","POST"])
-def text_gpt():
-    return(render_template("text_gpt.html"))
+@app.route("/image_gpt",methods=["GET","POST"])
+def image_gpt():
+    return(render_template("image_gpt.html"))
 
-@app.route("/text_result",methods=["GET","POST"])
-def text_result():
+@app.route("/image_result",methods=["GET","POST"])
+def image_result():
     q = request.form.get("q")
-    r = model.chat.completions.create(
-        model = "gpt-3.5-turbo",
-        messages=[
-            {
-            "role" : "user",
-            "content" : q
-            }
-        ]
+    r = replicate.run(
+    "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf",
+    input={
+        "prompt": q,
+        }
     )
-    time.sleep(5)
-    return(render_template("text_result.html",r=r.choices[0].message.content))
-
+    time.sleep(10)
+    return(render_template("image_result.html",r=r[0]))
 
 @app.route("/end",methods=["GET","POST"])
 def end():
@@ -73,3 +69,4 @@ def end():
 
 if __name__ == "__main__":
     app.run()
+
