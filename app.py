@@ -2,9 +2,15 @@ from flask import Flask,request,render_template
 import replicate
 import os
 import time
+from openai import OpenAI
+
+openai_api_key=os.environ["OPENAI_API_TOKEN"]="sess-okelMVShCxBwgu2r6dvGgYewkjbukou48xekRn1T"
+os.environ["REPLICATE_API_TOKEN"] = "r8_ce57ooEmWgSqmS6BqjCBGSWW2waTZTg3N2bhg"
+
+model = OpenAi(api_key=)
 
 app = Flask(__name__)
-os.environ["REPLICATE_API_TOKEN"] = "r8_ce57ooEmWgSqmS6BqjCBGSWW2waTZTg3N2bhg"
+
 
 r = ""
 first_time = 1
@@ -37,6 +43,32 @@ def image_result():
     time.sleep(10)
     return(render_template("image_result.html",r=r[0]))
 
+@app.route("/text_gpt",methods=["GET","POST"])
+def text_gpt():
+    return(render_template("text_gpt.html"))
+
+@app.route("/text_result",methods=["GET","POST"])
+def text_result():
+        q = request.form.get("q")
+        r = model.chat.completions.create(
+    model = "gpt-3.5-turbo",
+    messages=[
+        {
+        "role" : "user",
+        "content" : q
+        }
+    ],
+)
+        time.sleep(5)
+    r = replicate.run(
+        "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf",
+        input={
+            "prompt": q,
+        }
+    )
+    time.sleep(10)
+    return(render_template("text_result.html", r=r.choices[0].message.content))
+
 @app.route("/end",methods=["GET","POST"])
 def end():
     global first_time,r
@@ -45,5 +77,3 @@ def end():
 
 if __name__ == "__main__":
     app.run()
-
-
