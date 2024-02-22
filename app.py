@@ -18,10 +18,6 @@ first_time = 1
 def index():
     return(render_template("index.html"))
 
-@app.route("/",methods=["GET","POST"])
-def index():
-    return(render_template("remarks.html"))
-
 @app.route("/main",methods=["GET","POST"])
 def main():
     global r,first_time
@@ -67,7 +63,6 @@ def text_result():
     )
     time.sleep(5)
     return(render_template("text_result.html",r=r.choices[0].message.content))
-
 
 
 @app.route("/end",methods=["GET","POST"])
